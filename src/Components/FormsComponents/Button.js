@@ -1,42 +1,37 @@
-import React from "react";
+import React, { useCallback } from "react";
+
+import { useNavigate } from "react-router-dom";
 
 function Button(props) {
-  const changeIdHandler = (event) => {
-    props.onChangeId(event.target.value, props.index);
+  const validateId = () => {
+    if (props.data.id === "") return false;
+    if (isNaN(props.data.id)) return false;
+    return true;
   };
 
-  const changeNameHandler = (event) => {
-    props.onChangeName(event.target.value, props.index);
+  const validateName = () => {
+    if (props.data.name === "") return false;
+    return true;
   };
 
+  const navigate = useNavigate();
+  const handleOnClick = useCallback(() => {
+   // navigate('/', {replace: true})
+   console.log(props.data);
+  console.log(validateName(props.data.name));
+
+  }, [navigate]);
+
+  const handleOnClick = () => {
+    if (validateName() && validateId()) {
+      props.
+    }
+  };
 
   return (
-    <div>
-      <input
-        onChange={changeIdHandler}
-        id={"tag:[" + props.index + "].id"}
-        value={props.tag.id}
-        placeholder={"id "+ (props.index+1)}
-        type={props.type}
-      ></input>
-      <input
-        onChange={changeNameHandler}
-        id={"tag:[" + props.index + "].name"}
-        value={props.tag.name}
-        placeholder={"name "+ (props.index+1)}
-        type={props.type}
-      ></input>
-      {props.showDeleteBtn && (
-        <button
-          type="button"
-          onClick={() => {
-            props.onDelete(props.index);
-          }}
-        >
-          Sterge tag
-        </button>
-      )}
-    </div>
+    <button type="button" onClick={handleOnClick}>
+      Go home
+    </button>
   );
 }
 

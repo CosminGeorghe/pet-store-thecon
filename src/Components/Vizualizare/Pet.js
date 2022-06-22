@@ -13,7 +13,6 @@ const Pet = (props) => {
       {props.data.tags.map((tag) => (
         <p>{tag.id+". "+tag.name}</p>
       ))}
-      
     </div>
   );
 };

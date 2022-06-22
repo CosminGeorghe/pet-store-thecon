@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import { Link } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 
 import PhotoUrls from "../FormsComponents/PhotoUrls";
 import Tags from "../FormsComponents/Tags";
@@ -24,7 +26,7 @@ function Formular() {
         name: "",
       },
     ],
-    status: "",
+    status: "available",
   });
 
   function handle(e) {
@@ -35,6 +37,13 @@ function Formular() {
     console.log(newData);
   }
 
+  function handleStatus (e) {
+    const newData = { ...data };
+    newData["status"] = e.target.value;
+    console.log(newData);
+    setData(newData);
+  }
+
   function handleCategory(e) {
     const newData = { ...data };
     newData["category"][e.target.id] = e.target.value;
@@ -43,37 +52,54 @@ function Formular() {
     setData(newData);
   }
 
-  function updateDataUrls(urls){
+  function updateDataUrls(urls) {
     const newData = { ...data };
-    newData.photoUrls =urls;
+    newData.photoUrls = urls;
     setData(newData);
     console.log(data);
   }
 
-  function updateDataTags(tags){
+  function updateDataTags(tags) {
     const newData = { ...data };
-    newData.tags =tags;
+    newData.tags = tags;
     setData(newData);
     console.log(data);
   }
-  
 
+  const validateId = () => {
+    if (data.id === "") return false;
+    if (isNaN(data.id)) return false;
+    return true;
+  };
 
-  
+  const validateName = () => {
+    if (data.name === "") return false;
+    return true;
+  };
+
+  const navigate = useNavigate();
+  const navigateToListare = useCallback(
+    () => navigate("/", { replace: true }),
+    [navigate]
+  );
 
   function submit(e) {
-    console.log(data);
     e.preventDefault();
-    Axios.post(url, {
-      id: data.id,
-      category: data.category,
-      name: data.name,
-      photoUrls: data.photoUrls,
-      tags: data.tags,
-      status: data.status,
-    }).then((res) => {
-      console.log(res.data);
-    });
+
+    if (validateId() && validateName()) {
+      Axios.post(url, {
+        id: data.id,
+        category: data.category,
+        name: data.name,
+        photoUrls: data.photoUrls,
+        tags: data.tags,
+        status: data.status,
+      }).then((res) => {
+        console.log(res.data);
+      });
+
+      navigateToListare();
+    } else console.log("bad");
   }
 
   return (
@@ -92,23 +118,21 @@ function Formular() {
         placeholder="name"
         type="text"
       ></input>
-      <input
-        onChange={(e) => handle(e)}
-        id="status"
-        value={data.status}
-        placeholder="status"
-        type="text"
-      ></input>
+      <select onChange={(e) => handleStatus(e)} name="status" id="status">
+        <option value="Availabe">Availabe</option>
+        <option value="Pending">Pending</option>
+        <option value="Sold">Sold</option>
+      </select>
       <hr></hr>
       <p>category</p>
-           <input
+      <input
         onChange={(e) => handleCategory(e)}
         id="id"
         value={data.category.id}
         placeholder="id"
         type="text"
       ></input>
-           <input
+      <input
         onChange={(e) => handleCategory(e)}
         id="name"
         value={data.category.name}
@@ -116,11 +140,11 @@ function Formular() {
         type="text"
       ></input>
       <hr></hr>
-      <PhotoUrls urls ={data.photoUrls} updateDataUrls={updateDataUrls} />
+      <PhotoUrls urls={data.photoUrls} updateDataUrls={updateDataUrls} />
       <hr></hr>
       <p>Tags</p>
-      <Tags tags ={data.tags} updateDataTags={updateDataTags} />
-    
+      <Tags tags={data.tags} updateDataTags={updateDataTags} />
+
       <hr></hr>
       <button type="submit">Submit</button>
       <Link to={"/"} style={{ textDecoration: "none" }}>
