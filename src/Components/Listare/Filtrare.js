@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Filtrare = (props) => {
 
@@ -15,7 +15,6 @@ const Filtrare = (props) => {
         <option value="pending">Pending</option>
         <option value="sold">Sold</option>
       </select>
-      <button>aplica</button>
     </div>
   );
 };

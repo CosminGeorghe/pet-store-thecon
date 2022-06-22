@@ -1,9 +1,18 @@
-import React, { useState} from "react";
+import React from "react";
+
+import FormularEncloser from "../Components/Editare/FormularEncloser";
+
+import { useLocation } from 'react-router-dom';
 
 function Editare() {
+  const location = useLocation();
 
+  const strs = location.pathname.split('/');
+  const id = strs.at(-1);
+  
+  console.log(id);
   return (
-    <h2>Pagina de editare</h2>
+    <FormularEncloser oldId = {id}/>
   );
 }
 
