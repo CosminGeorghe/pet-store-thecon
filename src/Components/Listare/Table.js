@@ -26,7 +26,7 @@ const Table = (props) => {
     <div>
       <Filtrare changeStatus={changeStatus}></Filtrare>
 
-      <PetList pets={filteredPets} />
+      <PetList pets={filteredPets} refresh={props.refresh}/>
     </div>
   );
 };

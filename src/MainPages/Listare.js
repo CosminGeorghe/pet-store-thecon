@@ -41,7 +41,7 @@ function Listare() {
 
   let content;
   if (loading) content = <h2>Loading...</h2>;
-  else content = <Table pets={pets} />;
+  else content = <Table pets={pets} refresh={fetchPetsHandler}/>;
 
   useEffect(() => {
     fetchPetsHandler();

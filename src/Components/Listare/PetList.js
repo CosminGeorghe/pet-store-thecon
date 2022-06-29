@@ -15,7 +15,7 @@ const PetsList = (props) => {
       </tr>
       <tbody>
         {props.pets.map((pet) => (
-          <Pet index={pet[0].index} name={pet[0].name} status={pet[0].status} />
+          <Pet index={pet[0].index} name={pet[0].name} status={pet[0].status} refresh={props.refresh}/>
         ))}
       </tbody>
     </table>

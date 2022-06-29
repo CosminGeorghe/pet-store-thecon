@@ -54,7 +54,6 @@ function Tags(props) {
           onChangeName={handleTagName}
           onDelete={deleteTag}
           tag={tag}
-          type={"text"}
         />
       ))}
       <button type="button" onClick={addTag}>

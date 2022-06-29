@@ -7,6 +7,7 @@ const Pet = (props) => {
   function stergerePet() {
     console.log("happened");
     Axios.delete(url);
+    props.refresh();
   }
   return (
     <tr>

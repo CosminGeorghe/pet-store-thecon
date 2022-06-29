@@ -17,14 +17,14 @@ function Tag(props) {
         id={"tag:[" + props.index + "].id"}
         value={props.tag.id}
         placeholder={"id "+ (props.index+1)}
-        type={props.type}
+        type="number"
       ></input>
       <input
         onChange={changeNameHandler}
         id={"tag:[" + props.index + "].name"}
         value={props.tag.name}
         placeholder={"name "+ (props.index+1)}
-        type={props.type}
+        type="text"
       ></input>
       {props.showDeleteBtn && (
         <button

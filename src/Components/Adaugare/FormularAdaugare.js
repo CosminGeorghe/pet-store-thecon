@@ -12,6 +12,9 @@ import Axios from "axios";
 function Formular() {
   const url = "https://petstore.swagger.io/v2/pet";
 
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState();
+
   const [data, setData] = useState({
     id: "",
     category: {
@@ -37,7 +40,7 @@ function Formular() {
     console.log(newData);
   }
 
-  function handleStatus (e) {
+  function handleStatus(e) {
     const newData = { ...data };
     newData["status"] = e.target.value;
     console.log(newData);
@@ -66,17 +69,6 @@ function Formular() {
     console.log(data);
   }
 
-  const validateId = () => {
-    if (data.id === "") return false;
-    if (isNaN(data.id)) return false;
-    return true;
-  };
-
-  const validateName = () => {
-    if (data.name === "") return false;
-    return true;
-  };
-
   const navigate = useNavigate();
   const navigateToListare = useCallback(
     () => navigate("/", { replace: true }),
@@ -86,30 +78,39 @@ function Formular() {
   function submit(e) {
     e.preventDefault();
 
-    if (validateId() && validateName()) {
-      Axios.post(url, {
-        id: data.id,
-        category: data.category,
-        name: data.name,
-        photoUrls: data.photoUrls,
-        tags: data.tags,
-        status: data.status,
-      }).then((res) => {
+    Axios.post(url, {
+      id: data.id,
+      category: data.category,
+      name: data.name,
+      photoUrls: data.photoUrls,
+      tags: data.tags,
+      status: data.status,
+    })
+      .then((res) => {
         console.log(res.data);
+        setShowMessage(true);
+        setMessage(
+          "Pet adaugat cu succes!!!"
+        );
+        setTimeout(navigateToListare, 1000);
+      })
+      .catch(function (error) {
+        console.log(error.message);
+        setShowMessage(true);
+        setMessage("A aparut o eroare: " + error.message);
       });
-
-      navigateToListare();
-    } else console.log("bad");
   }
 
   return (
     <form onSubmit={(e) => submit(e)}>
+      {showMessage && <p2>{message}</p2>}
       <input
         onChange={(e) => handle(e)}
         id="id"
         value={data.id}
         placeholder="id"
-        type="text"
+        type="number"
+        required
       ></input>
       <input
         onChange={(e) => handle(e)}
@@ -117,11 +118,12 @@ function Formular() {
         value={data.name}
         placeholder="name"
         type="text"
+        required
       ></input>
       <select onChange={(e) => handleStatus(e)} name="status" id="status">
-        <option value="Availabe">Availabe</option>
-        <option value="Pending">Pending</option>
-        <option value="Sold">Sold</option>
+        <option value="availabe">availabe</option>
+        <option value="pending">pending</option>
+        <option value="sold">sold</option>
       </select>
       <hr></hr>
       <p>category</p>
@@ -130,7 +132,7 @@ function Formular() {
         id="id"
         value={data.category.id}
         placeholder="id"
-        type="text"
+        type="number"
       ></input>
       <input
         onChange={(e) => handleCategory(e)}
