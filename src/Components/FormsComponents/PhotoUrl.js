@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 
+import "./PhotoUrl.css";
+
 function PhotoUrl(props) {
   const changeHandler = (event) => {
     props.onChange(event.target.value, props.index);
   };
 
   return (
-    <div>
+    <div className="urls">
+      <label for="props.id">PHOTO URL {props.index + 1}</label>
       <input
         onChange={changeHandler}
         id={props.id}
@@ -20,6 +23,7 @@ function PhotoUrl(props) {
           onClick={() => {
             props.onDelete(props.index);
           }}
+          className="btn btn-danger"
         >
           Sterge url
         </button>

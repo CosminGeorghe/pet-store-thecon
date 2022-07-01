@@ -9,6 +9,8 @@ import Tags from "../FormsComponents/Tags";
 
 import Axios from "axios";
 
+import "./FormularAdaugare.css";
+
 function Formular() {
   const url = "https://petstore.swagger.io/v2/pet";
 
@@ -89,9 +91,7 @@ function Formular() {
       .then((res) => {
         console.log(res.data);
         setShowMessage(true);
-        setMessage(
-          "Pet adaugat cu succes!!!"
-        );
+        setMessage("Pet adaugat cu succes!!!");
         setTimeout(navigateToListare, 1000);
       })
       .catch(function (error) {
@@ -104,53 +104,72 @@ function Formular() {
   return (
     <form onSubmit={(e) => submit(e)}>
       {showMessage && <p2>{message}</p2>}
-      <input
-        onChange={(e) => handle(e)}
-        id="id"
-        value={data.id}
-        placeholder="id"
-        type="number"
-        required
-      ></input>
-      <input
-        onChange={(e) => handle(e)}
-        id="name"
-        value={data.name}
-        placeholder="name"
-        type="text"
-        required
-      ></input>
-      <select onChange={(e) => handleStatus(e)} name="status" id="status">
-        <option value="availabe">availabe</option>
-        <option value="pending">pending</option>
-        <option value="sold">sold</option>
-      </select>
-      <hr></hr>
-      <p>category</p>
-      <input
-        onChange={(e) => handleCategory(e)}
-        id="id"
-        value={data.category.id}
-        placeholder="id"
-        type="number"
-      ></input>
-      <input
-        onChange={(e) => handleCategory(e)}
-        id="name"
-        value={data.category.name}
-        placeholder="name"
-        type="text"
-      ></input>
-      <hr></hr>
-      <PhotoUrls urls={data.photoUrls} updateDataUrls={updateDataUrls} />
-      <hr></hr>
-      <p>Tags</p>
-      <Tags tags={data.tags} updateDataTags={updateDataTags} />
+      <div className="pet-info">
+        <div style={{ float: "left", marginRight: "1%" }}>
+          <label for="id">ID</label>
+          <input
+            onChange={(e) => handle(e)}
+            id="id"
+            value={data.id}
+            placeholder="id"
+            type="number"
+            required
+          ></input>
+        </div>
+        <div style={{ float: "left", marginRight: "1%" }}>
+          <label for="name">NAME</label>
+          <input
+            onChange={(e) => handle(e)}
+            id="name"
+            value={data.name}
+            placeholder="name"
+            type="text"
+            required
+          ></input>
+        </div>
+        <div>
+          <label for="status">STATUS</label>
+          <select onChange={(e) => handleStatus(e)} name="status" id="status">
+            <option value="availabe">availabe</option>
+            <option value="pending">pending</option>
+            <option value="sold">sold</option>
+          </select>
+        </div>
+        <hr></hr>
+        <p>category</p>
+        <div style={{ float: "left", marginRight: "1%" }}>
+          <label for="id">ID</label>
+          <input
+            onChange={(e) => handleCategory(e)}
+            id="id"
+            value={data.category.id}
+            placeholder="id"
+            type="number"
+          ></input>
+        </div>
+        <div>
+          <label for="name">NAME</label>
+          <input
+            onChange={(e) => handleCategory(e)}
+            id="name"
+            value={data.category.name}
+            placeholder="name"
+            type="text"
+          ></input>
+        </div>
+        <hr></hr>
+        <PhotoUrls urls={data.photoUrls} updateDataUrls={updateDataUrls} />
+        <hr></hr>
+        <p>Tags</p>
+        <Tags tags={data.tags} updateDataTags={updateDataTags} />
 
-      <hr></hr>
-      <button type="submit">Submit</button>
-      <Link to={"/"} style={{ textDecoration: "none" }}>
-        <button>Intoarcete la lista</button>
+        <hr></hr>
+      </div>
+      <button type="submit" className="btn btn-success">
+        Submit
+      </button>
+      <Link to={"/"} style={{ textDecoration: "none", float: "right" }}>
+        <button className="btn btn-warning">Intoarcete la lista</button>
       </Link>
     </form>
   );

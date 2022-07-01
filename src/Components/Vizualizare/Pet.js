@@ -6,6 +6,7 @@ const Pet = (props) => {
   return (
     <div>
       <h2>{data.id + ". "  }{data.name !== undefined && data.name !== "" ? data.name : "Nu exista nume"}</h2>
+      <h2  style={{float:"left"}}>Status:&nbsp;</h2>
       {data.status !== "" && <h2>{data.status}</h2>}
       {data.status === "" && <h2>"nu are status"</h2>}
 

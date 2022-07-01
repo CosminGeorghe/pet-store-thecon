@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal"
 import Axios from "axios";
+import "./Modal.css";
 
 const Pet = (props) => {
 
@@ -27,17 +28,17 @@ const Pet = (props) => {
           to={"/vizualizare/" + props.index}
           style={{ textDecoration: "none" }}
         >
-          <button>Vizualizeaza</button>
+          <button className="btn btn-success">Vizualizeaza</button>
         </Link>
         <Link to={"/editare/" + props.index} style={{ textDecoration: "none" }}>
-          <button>Editaeaza</button>
+          <button className="btn btn-warning">Editaeaza</button>
         </Link>
-        <button onClick={() => setmodalIsOpen(true)}>Sterge</button>
+        <button onClick={() => setmodalIsOpen(true)} className="btn btn-danger">Sterge</button>
         <Modal isOpen={modalIsOpen}>
           <h2>Atentie!!!</h2>
           <p>Petul va fi sters pentru totdeauna<br></br>Doresti sa continui?</p>
-          <button onClick={stergerePet}>Da</button>
-          <button onClick={() => setmodalIsOpen(false)}>Nu</button>
+          <button onClick={stergerePet} className="btn btn-danger">Da</button>
+          <button onClick={() => setmodalIsOpen(false)} className="btn btn-secondary">Nu</button>
         </Modal>
       </td>
     </tr>

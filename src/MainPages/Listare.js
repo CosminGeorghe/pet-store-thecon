@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 import Table from "../Components/Listare/Table";
 
+import "./Center.css";
+
 function Listare() {
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,23 +43,27 @@ function Listare() {
 
   let content;
   if (loading) content = <h2>Loading...</h2>;
-  else content = <Table pets={pets} refresh={fetchPetsHandler}/>;
+  else
+    content = (
+      <div>
+        <button onClick={fetchPetsHandler} style={{ float: "right" }} className="btn btn-secondary">
+          Refresh
+        </button>
+        <Link
+          to={"/adaugare"}
+          style={{ textDecoration: "none", float: "right" }}
+        >
+          <button className="btn btn-primary">Adauga</button>
+        </Link>
+        <Table className="center" pets={pets} refresh={fetchPetsHandler} />
+      </div>
+    );
 
   useEffect(() => {
     fetchPetsHandler();
   }, [fetchPetsHandler]);
 
-  return (
-    <React.Fragment>
-      <section>
-        <button onClick={fetchPetsHandler}>Refresh</button>
-        <Link to={"/adaugare"} style={{ textDecoration: "none" }}>
-          <button>Adauga</button>
-        </Link>
-      </section>
-      <section>{content}</section>
-    </React.Fragment>
-  );
+  return <div className="center">{content}</div>;
 }
 
 export default Listare;

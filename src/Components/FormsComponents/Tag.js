@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./Tag.css"
+
 function Tag(props) {
   const changeIdHandler = (event) => {
     props.onChangeId(event.target.value, props.index);
@@ -11,7 +13,9 @@ function Tag(props) {
 
 
   return (
-    <div>
+    <div className="tags">
+      <div style={{float:"left", marginRight: "1%",}}>
+        <label for={"tag:[" + props.index + "].id"}>ID {props.index + 1}</label>
       <input
         onChange={changeIdHandler}
         id={"tag:[" + props.index + "].id"}
@@ -19,6 +23,9 @@ function Tag(props) {
         placeholder={"id "+ (props.index+1)}
         type="number"
       ></input>
+      </div>
+      <div>
+      <label for={"tag:[" + props.index + "].name"}>NAME {props.index + 1}</label>
       <input
         onChange={changeNameHandler}
         id={"tag:[" + props.index + "].name"}
@@ -26,8 +33,10 @@ function Tag(props) {
         placeholder={"name "+ (props.index+1)}
         type="text"
       ></input>
+      </div>
       {props.showDeleteBtn && (
         <button
+        className="btn btn-danger"
           type="button"
           onClick={() => {
             props.onDelete(props.index);

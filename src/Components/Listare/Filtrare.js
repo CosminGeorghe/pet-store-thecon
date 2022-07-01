@@ -8,8 +8,8 @@ const Filtrare = (props) => {
   return (
 
     <div>
-      <p>Filtreaza status dupa :</p>
-      <select name="status" id="status" onChange={dropdownChangeHandler}>
+      <p style={{float: "left", margin: "4px"}}>Filtreaza status dupa :</p>
+      <select name="status" id="status" onChange={dropdownChangeHandler} style={{float: "left", margin: "4px"}}>
         <option value="all">All</option>
         <option value="available">Available</option>
         <option value="pending">Pending</option>

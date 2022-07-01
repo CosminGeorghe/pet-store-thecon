@@ -25,7 +25,7 @@ const PetContainer = (props) => {
   return (
     <div>
       <Link to={"/"} style={{ textDecoration: "none" }}>
-        <button>Intoarcete la lista</button>
+        <button className="btn btn-warning">Intoarcete la lista</button>
       </Link>
       {loading && <h2>Loading...</h2>}
       {!loading && setPetData === undefined && (

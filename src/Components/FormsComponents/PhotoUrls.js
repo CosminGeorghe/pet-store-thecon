@@ -52,7 +52,7 @@ function PhotoUrls(props) {
           type={"text"}
         />
       ))}
-      <button type="button" onClick={addPhotoUrl}>
+      <button type="button" onClick={addPhotoUrl} className="btn btn-primary">
         Adauga Url
       </button>
     </div>

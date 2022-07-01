@@ -1,11 +1,14 @@
 import React from "react";
 
-import Formular from "../Components/Adaugare/FormularAdaugare";
+import FormularAdaugare from "../Components/Adaugare/FormularAdaugare";
+
+import "./Center.css";
 
 function Adaugare() {
-
   return (
-    <Formular />
+    <div className="center">
+      <FormularAdaugare />
+    </div>
   );
 }
 
