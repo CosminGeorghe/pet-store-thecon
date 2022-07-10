@@ -9,36 +9,27 @@ import "./Center.css";
 function Listare() {
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const petsNumber = 1000;
-  const petsStartNumber = 1000;
 
   const fetchPetsHandler = useCallback(() => {
     setLoading(true);
     let fetchedPets = [];
-    for (let id = 1; id <= 1000; id++) {
-      fetch("https://petstore.swagger.io/v2/pet/" + id)
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          if (data.code !== 1) {
-            const pet = [
-              {
-                index: data.id,
-                name: data.name,
-                status: data.status,
-                key: data.id,
-              },
-            ];
+
+    fetch(
+      "https://petstore.swagger.io/v2/pet/findByStatus?status=available,pending,sold"
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        data.map((pet) => {
+          if (pet.id < 9222968140491042000) {
+            console.log(pet.id);
             fetchedPets.push(pet);
           }
-          if (id >= petsNumber) {
-            console.log("happenes");
-            setLoading(false);
-            setPets(fetchedPets);
-          }
         });
-    }
+        setLoading(false);
+        setPets(fetchedPets);
+      });
   }, []);
 
   let content;
@@ -46,7 +37,11 @@ function Listare() {
   else
     content = (
       <div>
-        <button onClick={fetchPetsHandler} style={{ float: "right" }} className="btn btn-secondary">
+        <button
+          onClick={fetchPetsHandler}
+          style={{ float: "right" }}
+          className="btn btn-secondary"
+        >
           Refresh
         </button>
         <Link

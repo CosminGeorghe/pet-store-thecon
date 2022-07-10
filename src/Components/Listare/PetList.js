@@ -16,11 +16,11 @@ const PetsList = (props) => {
         </tr>
       </thead>
       <tbody>
-        {props.pets.map((pet) => (
+        {props.pets.map((pet, index) => (
           <Pet
-            index={pet[0].index}
-            name={pet[0].name}
-            status={pet[0].status}
+            key={index+1}
+            index={index+1}
+            pet={pet}
             refresh={props.refresh}
           />
         ))}

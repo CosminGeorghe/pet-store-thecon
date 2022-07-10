@@ -8,7 +8,7 @@ const Pet = (props) => {
 
   const [modalIsOpen,setmodalIsOpen] = useState(false);
 
-  const url = "https://petstore.swagger.io/v2/pet/" + props.index;
+  const url = "https://petstore.swagger.io/v2/pet/" + props.pet.id;
 
 
   function stergerePet() {
@@ -21,16 +21,16 @@ const Pet = (props) => {
   return (
     <tr>
       <td>{props.index}</td>
-      <td>{props.name}</td>
-      <td>{props.status}</td>
+      <td>{props.pet.name}</td>
+      <td>{props.pet.status}</td>
       <td>
         <Link
-          to={"/vizualizare/" + props.index}
+          to={"/vizualizare/" + props.pet.id}
           style={{ textDecoration: "none" }}
         >
           <button className="btn btn-success">Vizualizeaza</button>
         </Link>
-        <Link to={"/editare/" + props.index} style={{ textDecoration: "none" }}>
+        <Link to={"/editare/" + props.pet.index} style={{ textDecoration: "none" }}>
           <button className="btn btn-warning">Editaeaza</button>
         </Link>
         <button onClick={() => setmodalIsOpen(true)} className="btn btn-danger">Sterge</button>

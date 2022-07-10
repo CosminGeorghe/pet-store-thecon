@@ -12,9 +12,9 @@ const Table = (props) => {
     } else {
       props.pets.map(
         (pet) =>
-          (typeof pet[0].status === "string" ||
-            pet[0].status instanceof String) &&
-          status.toLowerCase() === pet[0].status.toLowerCase() &&
+          (typeof pet.status === "string" ||
+            pet.status instanceof String) &&
+          status.toLowerCase() === pet.status.toLowerCase() &&
           temporaryPets.push(pet)
       );
     }
